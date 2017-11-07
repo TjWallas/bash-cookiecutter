@@ -33,16 +33,22 @@ cleanup() {
     # ...
     info "Cleaning up before exit..."
 }
-
-if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
-    trap cleanup EXIT
-    # Script goes here
-    # ...
-fi
-
 # --- Helper scripts end ---
 
 # https://stackoverflow.com/questions/2853803/in-a-shell-script-echo-shell-commands-as-they-are-executed
 # set -x
 
 # Code begins here...
+
+main() {
+
+    # Script goes here
+    # ...
+    return
+}
+
+if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
+    trap cleanup EXIT
+    main
+fi
+
