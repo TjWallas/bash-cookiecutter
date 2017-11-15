@@ -33,6 +33,31 @@ cleanup() {
     # ...
     info "Cleaning up before exit..."
 }
+
+assert_running_as_root() {
+  if [[ ${EUID} -ne 0 ]]; then
+      fatal "This script must be run as root!"
+  fi
+}
+
+assert_command_is_available() {
+  local cmd=${1}
+  type ${cmd} >/dev/null 2>&1 || fatal "Cancelling because required command '${cmd}' is not available."
+}
+
+_get_abs_script_path() {
+    SOURCE="${BASH_SOURCE[0]}"
+    while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+      DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+      SOURCE="$(readlink "$SOURCE")"
+      [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    done
+    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+    FILENAME=$(basename "$0") # This does not consider if the script was a symlink
+    ABS_SCRIPT_PATH="$DIR/$FILENAME"
+}
+
+
 # --- Helper scripts end ---
 
 # https://stackoverflow.com/questions/2853803/in-a-shell-script-echo-shell-commands-as-they-are-executed
@@ -43,12 +68,17 @@ cleanup() {
 main() {
 
     # Script goes here
+    # Important global vars:
+    #  $ABS_SCRIPT_PATH
+    #  $DIR : Script full dir path
+    #  $FILENAME: Script filename
     # ...
     return
 }
 
 if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
     trap cleanup EXIT
+    _get_abs_script_path
     main
 fi
 
