@@ -9,6 +9,12 @@ set -euf -o pipefail
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
 IFS=$'\n\t'
 
+# Other useful conventions and resources:
+# http://bash3boilerplate.sh/
+# https://github.com/progrium/bashstyle
+# https://github.com/kward/shunit2
+# https://github.com/koalaman/shellcheck
+
 # --- Helper scripts begin ---
 # https://dev.to/thiht/shell-scripts-matter
 
