@@ -82,8 +82,9 @@ main() {
     return
 }
 
+trap cleanup EXIT
+
 if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
-    trap cleanup EXIT
     _get_abs_script_path
     main "$@"
 fi
