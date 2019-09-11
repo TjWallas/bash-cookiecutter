@@ -7,6 +7,11 @@ main() {
     main
 
     # Script goes here
+    # Important global vars:
+    #  $ABS_SCRIPT_PATH
+    #  $DIR : Script full dir path
+    #  $FILENAME: Script filename
+    # ...
 
     return
 }
