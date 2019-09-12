@@ -61,6 +61,10 @@ _get_abs_script_path() {
     DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
     FILENAME=$(basename "$0") # This does not consider if the script was a symlink
     ABS_SCRIPT_PATH="$DIR/$FILENAME"
+    readonly SOURCE
+    readonly DIR
+    readonly ABS_SCRIPT_PATH
+    readonly FILENAME
 }
 
 
